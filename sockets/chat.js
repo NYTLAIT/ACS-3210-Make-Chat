@@ -44,4 +44,17 @@ module.exports = (io, socket, onlineUsers, channels) => {
       messages: channels[newChannel]
     });
   })
+
+  //Have the socket join the room of the channel
+  socket.on('user changed channel', (newChannel) => {
+    if (socket.currentChannel) {
+      socket.leave(socket.currentChannel);
+    }
+    socket.currentChannel = newChannel;
+    socket.join(newChannel);
+    socket.emit('user changed channel', {
+      channel: newChannel,
+      messages: channels[newChannel]
+    });
+  });
 }
