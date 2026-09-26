@@ -8,7 +8,8 @@ const server = require('http').Server(app);
 // Socketio
 const io = require('socket.io')(server);
 io.on("connection", (socket) => {
-    console.log("🔌 New user connected! 🔌");
+  // File will be read on new socket connections
+  require('./sockets/chat.js')(io, socket);
 })
 
 // Reister Handlebars
@@ -23,10 +24,10 @@ app.use('/public', express.static('public'))
 // Render views / index.handlebars
 // Create Route '/'
 app.get('/', (req, res) => {
-    res.render('index');
+  res.render('index');
 });
 
 // Start server
 server.listen(3000, () => {
-    console.log('Server listening on Port 3000');
+  console.log('Server listening on Port 3000');
 });
