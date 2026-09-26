@@ -7,9 +7,11 @@ const server = require('http').Server(app);
 
 // Socketio
 const io = require('socket.io')(server);
+// Store online users here
+let onlineUsers = {}
 io.on("connection", (socket) => {
   // File will be read on new socket connections
-  require('./sockets/chat.js')(io, socket);
+  require('./sockets/chat.js')(io, socket, onlineUsers);
 })
 
 // Reister Handlebars
@@ -21,7 +23,7 @@ app.set('view engine', 'handlebars');
 // Establish public folder for browser to access
 app.use('/public', express.static('public'))
 
-// Render views / index.handlebars
+// Render views / index.handlebarsq
 // Create Route '/'
 app.get('/', (req, res) => {
   res.render('index');
