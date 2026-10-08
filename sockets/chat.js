@@ -58,3 +58,17 @@ module.exports = (io, socket, onlineUsers, channels) => {
     });
   });
 }
+
+
+// CHANNEL STATES
+socket.emit('get channels')
+
+socket.on('give channels', (channels) => {
+  $('.channels').empty();
+
+  channels.forEach((channel) => {
+    $('.channels').append(
+      `<div class="channel">${channel}</div>`
+    );
+  });
+});

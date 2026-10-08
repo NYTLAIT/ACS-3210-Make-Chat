@@ -113,3 +113,7 @@ $(document).ready(() => {
     }
   })
 })
+
+socket.on('get channels', () => {
+  socket.emit('give channels', Object.keys(channels))
+})
